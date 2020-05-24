@@ -17,7 +17,7 @@ class altieri_entropy(object):
 
     """
 
-    def __init__(self, points, types, cut=1, order=False, base=np.e):
+    def __init__(self, points, types, cut=None, order=False, base=None):
         """
 
         Args:
@@ -25,11 +25,14 @@ class altieri_entropy(object):
             types: array, the length should correspond to points
             cut: int or array, number means how many cut to make from [0, max], array allow you to make your own cut
             order: bool, if True, (x1, x2) and (x2, x1) is not the same
-            base: int or float, the log base
+            base: int or float, the log base, default is e
 
         """
         if len(points) != len(types):
             raise ValueError("Array of points and types should have same length")
+
+        if base is None:
+            base = np.e
 
         self._points = points
         self._types = types
@@ -42,6 +45,9 @@ class altieri_entropy(object):
 
         elif isinstance(cut, Sequence):
             self._break = interval_pairs(cut)
+
+        elif cut is None:
+            self._break = interval_pairs(np.linspace(0, self.adj_matrix.max(), 3))
 
         else:
             raise ValueError("'cut' must be an int or an array-like object")
@@ -92,10 +98,20 @@ class altieri_entropy(object):
         PI_Zwk = []  # PI(Z|w_k)
 
         for i in zw:
-            v = np.array(list(i.values()))
+            v_ = i.values()
+
+            v, pz_ = [], []
+            for ix, x in enumerate(v_):
+                if x != 0:
+                    v.append(x)
+                    pz_.append(pz[ix])
+
+            v = np.asarray(v)
+            pz_ = np.asarray(pz_)
+
             v = v / v.sum()
             H = v * np.log(1 / v) / np.log(self._base)
-            PI = v * np.log(pz / v) / np.log(self._base)
+            PI = v * np.log(pz_ / v) / np.log(self._base)
             H_Zwk.append(H.sum())
             PI_Zwk.append(PI.sum())
 

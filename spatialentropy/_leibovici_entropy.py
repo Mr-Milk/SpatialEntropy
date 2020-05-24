@@ -14,26 +14,32 @@ class leibovici_entropy(object):
 
     """
 
-    def __init__(self, points, types, d, order=False, base=np.e):
+    def __init__(self, points, types, d=None, order=False, base=None):
         """
 
         Args:
             points: array, 2d array
             types: array, the length should correspond to points
-            d: int or float, cut-off distance
+            d: int or float, cut-off distance, default is 10
             order: bool, if True, (x1, x2) and (x2, x1) is not the same
-            base: int or float, the log base
+            base: int or float, the log base, default is e
 
         """
         if len(points) != len(types):
             raise ValueError("Array of points and types should have same length")
 
+        if base is None:
+            base = np.e
+
+        if d is None:
+            d = 10
+
         self._points = points
         self._types = types
-        self._d = d
         self._order = order
         self._base = base
         self.adj_matrix = pairwise_distances(self._points)
+        self._d = d
 
         self._count()
 
@@ -42,7 +48,10 @@ class leibovici_entropy(object):
         type_matx, utypes = type_adj_matrix(bool_matx, self._types)
         pairs_counts = pairs_counter(type_matx, utypes, self._order)
 
-        v = np.array(list(pairs_counts.values()))
+        v = pairs_counts.values()
+        # clean all elements that equal to zero to prevent divide by zero error
+        v = np.array([i for i in v if i != 0])
+
         v = v / v.sum()
         v = v * np.log(1 / v) / np.log(self._base)
 

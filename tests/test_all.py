@@ -3,8 +3,8 @@ import numpy as np
 from spatialentropy import leibovici_entropy, altieri_entropy
 
 # some fake data
-points = 100 * np.random.randn(10000, 2) + 1000
-types = np.random.choice(range(30), 10000)
+points = 100 * np.random.randn(100, 2) + 1000
+types = np.random.choice(range(30), 100)
 
 
 def test_leibovici():

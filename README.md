@@ -21,7 +21,7 @@ pip install spatialentropy
 
 ## Usage
 
-Let's generated some fake data first:
+Let's generate some fake data first:
 
 ```python
 import numpy as np
@@ -40,7 +40,9 @@ To calculate the leibovici entropy, we need to set up a distance to define the c
 from spatialentropy import leibovici_entropy
 
 # here we set the distance d into 5
-e = leibovici_entropy(points, types, 5)
+e = leibovici_entropy(points, types, d=5)
+# if you want to change the base of log
+e = leibovici_entropy(points, types, d=5, base=2)
 
 e.entropy # to get the entropy value
 e.adj_matrix # to get the adjacency matrix
