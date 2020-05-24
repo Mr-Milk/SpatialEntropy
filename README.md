@@ -1,9 +1,9 @@
 # SpatialEntropy
 
-![Test](https://github.com/Mr-Milk/SpatialEntropy/workflows/Test/badge.svg)[![PyPI version](https://badge.fury.io/py/spatialentropy.svg)](https://badge.fury.io/py/spatialentropy)
+![Test](https://github.com/Mr-Milk/SpatialEntropy/workflows/Test/badge.svg) [![PyPI version](https://badge.fury.io/py/spatialentropy.svg)](https://badge.fury.io/py/spatialentropy)
 
 This is a python implementation of spatial entropy, inspired by the R package *spatentropy*. For now, two spatial entropy
-methods has been implemented:
+methods have been implemented:
 
 - Leibovici’s entropy
 - Altieri's entropy
@@ -34,7 +34,7 @@ Here we have 10,000 points and then we assigned each point with a category from 
 
 
 
-To calculate the libovici entropy, we need to set up a distance to define the co-occurrences.
+To calculate the leibovici entropy, we need to set up a distance to define the co-occurrences.
 
 ```python
 from spatialentropy import leibovici_entropy
@@ -49,7 +49,7 @@ e.pairs_counts # to get the counts for each pair of co-occurrences
 
 
 
-To calculate the latieri entropy, we need to set up a distance to define the co-occurrences.
+To calculate the altieri entropy, we need to set up intervals to define the co-occurrences.
 
 ```python
 from spatialentropy import altieri_entropy

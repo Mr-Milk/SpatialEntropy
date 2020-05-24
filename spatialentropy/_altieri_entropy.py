@@ -17,7 +17,7 @@ class altieri_entropy(object):
 
     """
 
-    def __init__(self, points, types, cut=1, order=False):
+    def __init__(self, points, types, cut=1, order=False, base=np.e):
         """
 
         Args:
@@ -25,11 +25,16 @@ class altieri_entropy(object):
             types: array, the length should correspond to points
             cut: int or array, number means how many cut to make from [0, max], array allow you to make your own cut
             order: bool, if True, (x1, x2) and (x2, x1) is not the same
+            base: int or float, the log base
 
         """
+        if len(points) != len(types):
+            raise ValueError("Array of points and types should have same length")
+
         self._points = points
         self._types = types
         self._order = order
+        self._base = base
         self.adj_matrix = pairwise_distances(self._points)
 
         if isinstance(cut, int):
@@ -89,8 +94,8 @@ class altieri_entropy(object):
         for i in zw:
             v = np.array(list(i.values()))
             v = v / v.sum()
-            H = v * np.log(1 / v)
-            PI = v * np.log(pz / v)
+            H = v * np.log(1 / v) / np.log(self._base)
+            PI = v * np.log(pz / v) / np.log(self._base)
             H_Zwk.append(H.sum())
             PI_Zwk.append(PI.sum())
 
