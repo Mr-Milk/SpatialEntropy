@@ -58,7 +58,7 @@ class altieri_entropy(object):
 
         zw = []
         for (p1, p2) in self._break:
-            bool_matx = ((self.adj_matrix > p1) & (self.adj_matrix < p2)).astype(int)
+            bool_matx = ((self.adj_matrix > p1) & (self.adj_matrix <= p2)).astype(int)
             type_matx, utypes = type_adj_matrix(bool_matx, self._types)
             pairs_counts = pairs_counter(type_matx, utypes, self._order)
             zw.append(pairs_counts)
@@ -111,7 +111,7 @@ class altieri_entropy(object):
 
             v = v / v.sum()
             H = v * np.log(1 / v) / np.log(self._base)
-            PI = v * np.log(pz_ / v) / np.log(self._base)
+            PI = v * np.log(v / pz_) / np.log(self._base)
             H_Zwk.append(H.sum())
             PI_Zwk.append(PI.sum())
 

@@ -1,3 +1,5 @@
+from typing import Sequence
+
 import numpy as np
 from sklearn.metrics import pairwise_distances
 
@@ -32,19 +34,29 @@ class leibovici_entropy(object):
             base = np.e
 
         if d is None:
-            d = 10
+            d1 = 0
+            d2 = 10
+        elif isinstance(d, (int, float)):
+            d1 = 0
+            d2 = d
+        elif isinstance(d, Sequence):
+            d1 = d[0]
+            d2 = d[1]
+        else:
+            raise ValueError("d could either be a number or an interval.")
 
         self._points = points
         self._types = types
         self._order = order
         self._base = base
         self.adj_matrix = pairwise_distances(self._points)
-        self._d = d
+        self._d1 = d1
+        self._d2 = d2
 
         self._count()
 
     def _count(self):
-        bool_matx = (self.adj_matrix <= self._d).astype(int)
+        bool_matx = ((self.adj_matrix >= self._d1) & (self.adj_matrix <= self._d2)).astype(int)
         type_matx, utypes = type_adj_matrix(bool_matx, self._types)
         pairs_counts = pairs_counter(type_matx, utypes, self._order)
 

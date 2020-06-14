@@ -9,6 +9,10 @@ methods have been implemented:
 - Altieri's entropy
 
 
+## Compare with shannon entropy
+
+![Compare](src/example.png)
+
 
 ## Installation
 
@@ -32,35 +36,46 @@ types = np.random.choice(range(30), 10000)
 
 Here we have 10,000 points and then we assigned each point with a category from 30 categories.
 
-
-
-To calculate the leibovici entropy, we need to set up a distance to define the co-occurrences.
+### Quick start
 
 ```python
 from spatialentropy import leibovici_entropy
 
-# here we set the distance d into 5
+e = leibovici_entropy(points, types)
+e.entropy
+```
+
+### Leibovici entropy
+
+To calculate the leibovici entropy, we need to set up a distance or an interval to define the co-occurrences.
+
+```python
+from spatialentropy import leibovici_entropy
+
+# set the distance cut-off to 5
 e = leibovici_entropy(points, types, d=5)
+# or choose an interval from 10-20
+e = leibovici_entropy(points, types, d=(10, 20))
 # if you want to change the base of log
-e = leibovici_entropy(points, types, d=5, base=2)
+e = leibovici_entropy(points, types, base=2)
 
 e.entropy # to get the entropy value
 e.adj_matrix # to get the adjacency matrix
 e.pairs_counts # to get the counts for each pair of co-occurrences
 ```
 
-
+### Altieri entropy
 
 To calculate the altieri entropy, we need to set up intervals to define the co-occurrences.
 
 ```python
 from spatialentropy import altieri_entropy
 
-# if the cut is set as a number, it means how many times to cut evenly from [0,max]
-# there for it will generate cut + 1 intervals
-# if the cut is an array, it lets you define your own intervals
-# e = leibovici_entropy(points, types, cut=[0,4,10])
-e = leibovici_entropy(points, types, cut=2)
+# set cut=2, it means we will create 3 intervals evenly from [0,max]
+e = altieri_entropy(points, types, cut=2)
+
+# or you want to define your own intervals
+e = altieri_entropy(points, types, cut=[0,4,10])
 
 e.entropy # to get the entropy value, e.entropy = e.mutual_info + e.residue
 e.mutual_info # the spatial mutual information
