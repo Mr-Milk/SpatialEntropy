@@ -2,8 +2,7 @@
 
 ![Test](https://github.com/Mr-Milk/SpatialEntropy/workflows/Test/badge.svg) [![PyPI version](https://badge.fury.io/py/spatialentropy.svg)](https://badge.fury.io/py/spatialentropy)
 
-This is a python implementation of spatial entropy, inspired by the R package *spatentropy*. For now, two spatial entropy
-methods have been implemented:
+This is a python implementation of spatial entropy, inspired by the R package *spatentropy*. For now, two spatial entropy methods have been implemented:
 
 - Leibovici’s entropy
 - Altieri's entropy
@@ -24,6 +23,8 @@ pip install spatialentropy
 
 
 ## Usage
+
+[Example](/example.ipynb)
 
 Let's generate some fake data first:
 
