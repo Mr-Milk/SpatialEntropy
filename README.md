@@ -55,8 +55,6 @@ from spatialentropy import leibovici_entropy
 
 # set the distance cut-off to 5
 e = leibovici_entropy(points, types, d=5)
-# or choose an interval from 10-20
-e = leibovici_entropy(points, types, d=(10, 20))
 # if you want to change the base of log
 e = leibovici_entropy(points, types, base=2)
 

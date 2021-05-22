@@ -113,7 +113,6 @@ def get_pair(types, neighbors):
 
 
 def get_pair_count(pair, order):
-
     pairs_counts = Counter(pair)
 
     if not order:

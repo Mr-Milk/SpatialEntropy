@@ -32,13 +32,11 @@ def leibovici(points: Union[List[float], np.ndarray],
         base = np.e
 
     if d is None:
-        d1 = 0
-        d2 = 10
+        d = 10
     elif isinstance(d, (int, float)):
-        d1 = 0
-        d2 = d
+        pass
     else:
-        raise ValueError("d could either be a number or an interval.")
+        raise TypeError("d should be a number.")
 
     points = [tuple(i) for i in points]
     if isinstance(types[0], str):
