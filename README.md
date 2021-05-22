@@ -10,7 +10,7 @@ This is a python implementation of spatial entropy, inspired by the R package *s
 
 ## Compare with shannon entropy
 
-![Compare](src/example.png)
+![Compare](https://github.com/Mr-Milk/SpatialEntropy/blob/master/img/example.png?raw=true)
 
 
 ## Installation
@@ -24,7 +24,7 @@ pip install spatialentropy
 
 ## Usage
 
-[Example](/example.ipynb)
+[Check out an example](https://nbviewer.jupyter.org/gist/Mr-Milk/af67ac0957201227723ed76f526487ea)
 
 Let's generate some fake data first:
 

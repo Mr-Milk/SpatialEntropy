@@ -1,4 +1,4 @@
-from collections import OrderedDict
+from collections import OrderedDict, Counter
 from itertools import combinations_with_replacement, product
 
 import numpy as np
@@ -95,3 +95,36 @@ def interval_pairs(arr):
             new_arr.append((x, arr[i + 1]))
 
     return new_arr
+
+
+def types2int(types):
+    uni_types = np.unique(types)
+    types_mapper = dict(zip(uni_types, range(len(uni_types))))
+    types = [types_mapper[t] for t in types]
+    return types
+
+
+def get_pair(types, neighbors):
+    pairs = []
+    for i, n in zip(types, neighbors):
+        for j in n:
+            pairs.append((i, j,))
+    return pairs
+
+
+def get_pair_count(pair, order):
+
+    pairs_counts = Counter(pair)
+
+    if not order:
+        unorder_pairs_counts = {}
+        for k, v in pairs_counts.items():
+            k_reverse = k[::-1]
+            if unorder_pairs_counts.get(k) is None:
+                if unorder_pairs_counts.get(k_reverse) is None:
+                    unorder_pairs_counts[k] = v
+                else:
+                    unorder_pairs_counts[k_reverse] += v
+        return unorder_pairs_counts
+
+    return pairs_counts
